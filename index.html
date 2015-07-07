@@ -6,6 +6,32 @@
 <script type = "text/javascript" src="lib/peer.min.js"></script>
 </head>
 <body>
+<div><!--Video area-->
+	<div id = "video-container">
+	Your Friend <video id="their-video" autoplay class="their-video"></video>
+	<video id="my-video" muted="false" autoplay class="my-video"></video>
+	</div>
+</div>
+
+<div><h2>Simple PeerJS Vid Chat w/ Manual Signalling</h2></div>
+	<div id='step-1'>
+		<p>Click 'allow' on the top of the screen to enable usage of your cam and mic.</p>
+		<div id = "step-1-error">
+		<p>We failed to grab your cam & mic. Please click 'allow' when asked by your browser</p>
+		<a href="#" id="step-1-retry" class="button">Try again!</a>
+		</div>
+
+	</div>
+
+	<div id="step-2">
+	<p>Your id: <span id="my-id">
+	<p>Share this id with others so they can connect</p>
+	<p> <span id ="subhead">Make call</span></p>
+	<input type="text" placeholder ="Call this id." id="their-id">
+	<a href="#" id="make-call">make call</a>
+	</div>
+
+</div>
 
 </body>
 
