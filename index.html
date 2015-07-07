@@ -14,23 +14,31 @@
 	</div>
 </div>
 
-<div><h2>Simple PeerJS Vid Chat w/ Manual Signalling</h2></div>
-	<div id='step-1'>
+<div><h2>Simple PeerJS Vid Chat w/ Manual Signalling</h2>
+<!--get local a/v-->
+	<div id='step1'>
 		<p>Click 'allow' on the top of the screen to enable usage of your cam and mic.</p>
-		<div id = "step-1-error">
+		<div id = "step1-error">
 		<p>We failed to grab your cam & mic. Please click 'allow' when asked by your browser</p>
-		<a href="#" id="step-1-retry" class="button">Try again!</a>
+		<a href="#" id="step1-retry" class="button">Try again!</a>
 		</div>
 
 	</div>
-
-	<div id="step-2">
-	<p>Your id: <span id="my-id">
-	<p>Share this id with others so they can connect</p>
-	<p> <span id ="subhead">Make call</span></p>
-	<input type="text" placeholder ="Call this id." id="their-id">
-	<a href="#" id="make-call">make call</a>
+<!--make call to others-->
+	<div id="step2">
+		<p>Your id: <span id="my-id">
+		<p>Share this id with others so they can connect</p>
+		<p> <span id ="subhead">Make call</span></p>
+		<input type="text" placeholder ="Call this id." id="their-id">
+		<a href="#" id="make-call">make call</a>
 	</div>
+
+<!--making call to another person-->
+	<div id="step3">
+	<p>Currently in call with <span id="their-id">...</p>
+	<a href="#" id="end-call">end call</a>
+	</div>
+
 
 </div>
 

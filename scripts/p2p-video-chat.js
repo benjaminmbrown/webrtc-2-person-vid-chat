@@ -1,10 +1,11 @@
-'use strict';
-
 navigator.getWebcam = (
 	navigator.getUserMedia ||
 	navigator.webkitGetUserMedia ||
 	navigator.mozGetUserMedia ||
-	navigator.msGetUserMedia);
+	navigator.msGetUserMedia
+	);
+
+
 
 
 //create peer object
@@ -13,10 +14,10 @@ var peer = new Peer({
 	debug: 3,
 	config: {'iceServers':[
 	{url: 'stun:stun.1.google.com:19302'},
-	{url: 'stune:stun1.1.google.com:19302'},
-	{url: 'turn:numb.viagenie.ca', username:'benjaminbb@gmail.com', credential:'nimajneb1983'}
+	{url: 'stun:stun1.1.google.com:19302'},
+	{url: 'turn:numb.viagenie.ca', username:'benjaminbb@gmail.com', credential:'webrtcdemo'}
 	]}
-})
+});
 
 //listen for when peer is open.. then set peer id
 peer.on('open', function(){
@@ -38,19 +39,19 @@ $(function(){
 		var call = peer.call($('#their-id').val(), window.localStream)
 	});
 
-	$('end-call').click(function(){
+	$('#end-call').click(function(){
 		//initiate a call
 		window.existingCall.close();
 		step2();
 	});
 
-	$('#step-1-retry').click(function(){
+	$('#step1-retry').click(function(){
 		//initiate a call
-		$('#step-1-error').hide();
-		step();
+		$('#step1-error').hide();
+		step1();
 	});
 
-	step1()
+	step1();
 })
 
 function step1(){
@@ -68,12 +69,15 @@ function step1(){
 
 }
 
+//show your id and hide other divs
 function step2(){
 	//mod UI
-	$('#step-1', '#step-3').hide();
-	$('#step-2').show();
+	$('#step1', '#step3').hide();
+	$('#step2').show();
 }
 
+
+//
 function step3(){
 	//hang up on call if present
 	if(window.existingCall){
@@ -86,6 +90,6 @@ function step3(){
 		$('#their-video').prop('src', URL.createObjectURL(stream));
 	})
 
-	$('#step-1', '#step-2').hide();
-	$('#step-3').show();
+	$('#step1', '#step2').hide();
+	$('#step3').show();
 }
