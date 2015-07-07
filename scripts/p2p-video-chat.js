@@ -19,6 +19,20 @@ var peer = new Peer({
 	]}
 });
 
+$(document).ready(function(){
+         if($( '#step2' ).is(":visible")){
+              $( '#step2' ).hide();
+         } 
+
+		if($( '#step3' ).is(":visible")){
+              $( '#step3' ).hide();
+         }
+
+
+});
+
+$('#step2', '#step3').hide();
+
 //listen for when peer is open.. then set peer id
 peer.on('open', function(){
 	$('#my-id').text(peer.id);
@@ -36,7 +50,9 @@ peer.on('call', function(){
 $(function(){
 	$('#make-call').click(function(){
 		//initiate a call
-		var call = peer.call($('#their-id').val(), window.localStream)
+		var call = peer.call($('#their-id').val(), window.localStream);
+		$('#step2').hide();
+		step3(call);
 	});
 
 	$('#end-call').click(function(){
@@ -55,12 +71,13 @@ $(function(){
 })
 
 function step1(){
+	console.log('getting local A/V stream');
 	//get a/v stream
 	navigator.getWebcam({audio:false, video:true}, function(stream){
 		//display steam
 		$('#my-video').prop('src',URL.createObjectURL(stream));
 		window.localStream = stream;
-
+		$('#step1').hide();
 		step2();
 
 	}, function(){
@@ -71,6 +88,7 @@ function step1(){
 
 //show your id and hide other divs
 function step2(){
+	console.log('show/hide divs');
 	//mod UI
 	$('#step1', '#step3').hide();
 	$('#step2').show();
@@ -78,14 +96,14 @@ function step2(){
 
 
 //
-function step3(){
+function step3(call){
+	console.log('waiting for other party');
 	//hang up on call if present
 	if(window.existingCall){
 		window.existingCall.close();
 	}
 
 	//wait for stream on call, then setup peer vid
-
 	call.on('stream', function(stream){
 		$('#their-video').prop('src', URL.createObjectURL(stream));
 	})
