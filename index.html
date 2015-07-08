@@ -1,47 +1,50 @@
 <html>
 <head>
-<title>Simple 2 person video chat with PeerJS manual signalling</title>
-<link rel="stylesheet" href="styles/style.css">
-<script type = "text/javascript" src="lib/jquery-1.11.3.min.js"></script>
-<script type = "text/javascript" src="lib/peer.min.js"></script>
-<script type = "text/javascript" src="scripts/p2p-video-chat.js"></script>
+	<title>Simple 2 person video chat with PeerJS manual signalling</title>
+	<link rel="stylesheet" href="styles/style.css">
+	<script type = "text/javascript" src="lib/jquery-1.11.3.min.js"></script>
+	<script type = "text/javascript" src="lib/peer.min.js"></script>
+	<script type = "text/javascript" src="scripts/p2p-video-chat.js"></script>
 </head>
+
 <body>
 <div><!--Video area-->
+Your Friend 
 	<div id = "video-container">
-	Your Friend <video id="their-video" autoplay class="their-video"></video>
-	<video id="my-video" muted="true" autoplay class="my-video"></video>
+ <video id="their-video" autoplay class="their-video"></video>
+	
 	</div>
 </div>
 
-<div><h2>Simple PeerJS Vid Chat w/ Manual Signalling</h2>
+
+<div id="content-containter">
+<video id="my-video" muted="true" autoplay class="my-video"></video>
+<h3>Simple PeerJS Vid Chat w/ Manual Signalling</h3>
 <!-- 1. Get local a/v-->
-	<div id='step1'>
+	<div id="step1">
 	<h3>1.) Enable your audio and video</h3>
 		<p>Click 'allow' on the top of the screen to enable usage of your cam and mic.</p>
-		<div id = "step1-error">
-		<p>We failed to grab your cam & mic. Please click 'allow' when asked by your browser</p>
-		<a href="#" id="step1-retry" class="button">Try again!</a>
+		<div id ="step1-error">
+			<p>We failed to grab your cam & mic. Please click 'allow' when asked by your browser</p>
+			<a href="#" id="step1-retry" class="button">Try again!</a>
 		</div>
-
 	</div>
 <!-- 2. Make call to others-->
 	<div id="step2">
 	<h3>2.) Set up call with another person</h3>
-		<p>Your id: <span id="my-id">
+		<p>Your id: <span id="my-id"></span></p>
 		<p>Share this id with others so they can connect</p>
 		<p> <span id ="subhead">Make call</span></p>
-		<input type="text" placeholder ="Call this id." id="their-id">
-		<a href="#" id="make-call">make call</a>
+		<input type="text" placeholder ="Call this id." id="callto-id">
+		<a href="#" id="make-call" class="pure-button-success">MAKE CALL</a></input>
 	</div>
-
 <!-- 3. Making call to another person-->
 	<div id="step3">
-	<h3>3.) Your current call</h3>
-	<p>Currently in call with <span id="their-id">...</p>
-	<a href="#" id="end-call">end call</a>
+		<h3>3.) Your current call</h3>
+		<p>Currently in call with <span id="their-id">...</span>
+		<input type="text" id="end-call"><a href="#" id="end-call" class="button">End Call</a>
+		</p>s
 	</div>
-
 
 </div>
 

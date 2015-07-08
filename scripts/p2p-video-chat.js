@@ -1,3 +1,5 @@
+
+//shim for browser syntax variationss
 navigator.getWebcam = (
 	navigator.getUserMedia ||
 	navigator.webkitGetUserMedia ||
@@ -19,29 +21,28 @@ var peer = new Peer({
 	]}
 });
 
+//hide unneccessary steps on page load
 $(document).ready(function(){
          if($( '#step2' ).is(":visible")){
               $( '#step2' ).hide();
          } 
-
 		if($( '#step3' ).is(":visible")){
               $( '#step3' ).hide();
          }
-
-
 });
 
-$('#step2', '#step3').hide();
-
-//listen for when peer is open.. then set peer id
-peer.on('open', function(){
+//listen for when peer is open.. then set peer id (my id)
+peer.on('open', function(id){
+	console.log('my id is:'+id);
 	$('#my-id').text(peer.id);
 });
 
 //on answer
 peer.on('call', function(){
 	//auto answer
-	call.answer(window.localStream);
+	//call.answer(window.localStream);
+	call.answer(mediaStream);
+	//then go to the call handler step
 	step3(call);
 });
 
@@ -50,7 +51,7 @@ peer.on('call', function(){
 $(function(){
 	$('#make-call').click(function(){
 		//initiate a call
-		var call = peer.call($('#their-id').val(), window.localStream);
+		var call = peer.call($('#callto-id').val(), window.localStream);
 		$('#step2').hide();
 		step3(call);
 	});
@@ -77,7 +78,7 @@ function step1(){
 		//display steam
 		$('#my-video').prop('src',URL.createObjectURL(stream));
 		window.localStream = stream;
-		$('#step1').hide();
+		//$('#step1').hide();
 		step2();
 
 	}, function(){
@@ -90,7 +91,14 @@ function step1(){
 function step2(){
 	console.log('show/hide divs');
 	//mod UI
-	$('#step1', '#step3').hide();
+	  if($( '#step1' ).is(":visible")){
+              $( '#step1' ).hide();
+         } 
+
+          if($( '#step3' ).is(":visible")){
+              $( '#step3' ).hide();
+         } 
+
 	$('#step2').show();
 }
 
@@ -100,13 +108,15 @@ function step3(call){
 	console.log('waiting for other party');
 	//hang up on call if present
 	if(window.existingCall){
+		console.log('existing call in progress, closing call');
 		window.existingCall.close();
 	}
 
 	//wait for stream on call, then setup peer vid
 	call.on('stream', function(stream){
+		console.log('stream initiated');
 		$('#their-video').prop('src', URL.createObjectURL(stream));
-	})
+	});
 
 	$('#step1', '#step2').hide();
 	$('#step3').show();
